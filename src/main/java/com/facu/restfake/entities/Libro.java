@@ -22,7 +22,7 @@ public class Libro extends Base{
 
     private int paginas;
 
-    @ManyToMany (cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable (name = "LibroAutor",
             joinColumns = @JoinColumn (name = "libro_id"),
             inverseJoinColumns = @JoinColumn (name = "autor_id"))

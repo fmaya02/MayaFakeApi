@@ -20,10 +20,10 @@ public class Persona extends Base{
 
     private int dni;
 
-    @OneToMany (orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany (cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Libro> libros = new ArrayList<>();
 
-    @OneToOne (fetch = FetchType.EAGER)
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn (name = "domicilio_id")
     private Domicilio domicilio;
 

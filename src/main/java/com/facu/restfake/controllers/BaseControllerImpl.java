@@ -17,7 +17,8 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findALL());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error recuperando las instancias.\"}");
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
         }
     }
 
@@ -28,7 +29,8 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findById(id));
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, no se ha encontrado el registro especificado.\"}");
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
         }
     }
 
@@ -37,7 +39,8 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.save(entity));
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se ha podido guardar la entidad\"}");
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
         }
     }
 
@@ -46,7 +49,8 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.update(id,entity));
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo actualizar el registro\"}");
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
         }
     }
 
@@ -55,7 +59,8 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(servicio.delete(id));
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo eliminar la instancia\"}");
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
         }
     }
 }

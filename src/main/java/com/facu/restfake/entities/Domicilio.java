@@ -1,9 +1,6 @@
 package com.facu.restfake.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 @Entity
 @Getter
@@ -17,7 +14,7 @@ public class Domicilio extends Base{
 
     private int numero;
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn (name = "localidad_id")
     private Localidad localidad;
 }
