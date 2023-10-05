@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RequestMapping(path = "MayaFakeApi.com/personas")
 public class PersonaControllerImpl extends BaseControllerImpl<Persona, PersonaServiceImpl> {
-    //@PostMapping("/addlibro{id}")
-    //public ResponseEntity<?> addLibro(@PathVariable Long id, @RequestBody Libro libro){
-    //    try {
-    //        return ResponseEntity.status(HttpStatus.OK).body(servicio.addLibro(id, //libro));
-    //    }catch (Exception e) {
-    //        String strErr = e.getMessage();
-    //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
-    //    }
-    //}
+    @PostMapping("/addlibro{id}")
+    public ResponseEntity<?> addLibro(@PathVariable Long id, @RequestBody Libro libro){
+       try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.addLibro(id, libro));
+        }catch (Exception e) {
+            String strErr = e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":"+strErr+"}");
+        }
+    }
 }

@@ -21,6 +21,7 @@ public class Persona extends Base{
     private int dni;
 
     @OneToMany (cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn (name = "persona_id")
     private List<Libro> libros = new ArrayList<>();
 
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -29,5 +30,14 @@ public class Persona extends Base{
 
     public void addLibro (Libro libro){
         libros.add(libro);
+    }
+
+    public Libro getLibro (Long libId) {
+        for (int i=0; i< libros.size();i++){
+            Libro libro = libros.get(i);
+            if (libro.getId().equals(libId))
+                return libro;
+        }
+        return null;
     }
 }

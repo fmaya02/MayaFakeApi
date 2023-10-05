@@ -16,24 +16,24 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona,Long> implements
     @Autowired
     private PersonaRepository personaRepository;
 
-    //@Autowired
-    //private LibroServiceImpl libroService;
+    @Autowired
+    private LibroServiceImpl libroService;
 
     public PersonaServiceImpl (BaseRepository<Persona,Long> baseRepository, PersonaRepository personaRepository){
         super(baseRepository);
         this.personaRepository = personaRepository;
     }
 
-   // @Transactional
-   // public Libro addLibro(Long id, Libro libro) throws Exception {
-   //     try{
-   //         libroService.save(libro);
-   //         Optional<Persona> personaOptional = personaRepository.findById(id);
-   //         Persona per = //personaOptional.get();
-   //         per.addLibro(libro);
-   //         return libro;
-   //     } catch (Exception e){
-   //         throw new Exception(e.getMessage());
-   //     }
-   // }
+    @Transactional
+    public Libro addLibro(Long id, Libro libro) throws Exception {
+        try{
+            Optional<Persona> personaOptional = personaRepository.findById(id);
+            Persona per = personaOptional.get();
+            per.addLibro(libro);
+            personaRepository.save(per);
+            return per.getLibro(libro.getId());
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }
