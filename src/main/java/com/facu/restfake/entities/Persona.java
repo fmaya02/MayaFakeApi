@@ -21,6 +21,7 @@ public class Persona extends Base{
     private int dni;
 
     @OneToMany (cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn (name = "persona_id")
     private List<Libro> libros = new ArrayList<>();
 
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
