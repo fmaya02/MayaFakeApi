@@ -1,8 +1,10 @@
 package com.facu.restfake.services;
 
 import com.facu.restfake.entities.Base;
+import com.facu.restfake.errors.NotEqualIdException;
 import com.facu.restfake.repositories.BaseRepository;
 import jakarta.transaction.Transactional;
+import org.aspectj.weaver.ast.Not;
 
 import java.io.Serializable;
 import java.util.List;
@@ -51,12 +53,18 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     @Override
     @Transactional
     public E update(ID id, E entity) throws Exception {
-        try{
+        try {
             Optional<E> entityOptional = baseRepository.findById(id);
             E entityUpdate = entityOptional.get();
+            CheckEqualId(entityUpdate, entity);
+            //if ( !entityUpdate.getId().equals(entity.getId()) ) {
+            //    throw new NotEqualIdException("La ID de la URL no coincide con la del objeto del body");
+            //}
             entityUpdate = baseRepository.save(entity);
             return entityUpdate;
-        } catch (Exception e){
+        //}catch (NotEqualIdException e){
+        //    throw new Exception(e.getMessage());
+        }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
@@ -73,6 +81,12 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
             }
         } catch (Exception e){
             throw new Exception(e.getMessage());
+        }
+    }
+
+    private void CheckEqualId (E entityUpdate, E entity) throws  NotEqualIdException{
+        if ( !entityUpdate.getId().equals(entity.getId()) ) {
+            throw new NotEqualIdException("La ID de la URL no coincide con la del objeto del body");
         }
     }
 }
