@@ -10,4 +10,3 @@ Este es  un repositorio para la entrega del Trabajo Práctico: API sin Paginaci�
 **Curso:** 3K10
 **Año:** 2023
 **Legajo:** 48997
-## Endpoints de la API
